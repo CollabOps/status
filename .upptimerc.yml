@@ -1,31 +1,38 @@
-# Change these first
-owner: upptime # Your GitHub organization or username, where this repository lives
-repo: upptime # The name of this repository
+# CollabOps Public Status Page (Upptime) — status.collabops.ai
+# 대상: prod(collabops.ai SaaS). 감시 URL/기대코드는 2026-07-06 실측 기반
+# (403/401 = 인증 앞단 정상응답 = 서비스 생존 신호). 운영 카드: collabops-infrastructure/this-operation-manual/_OX63-statuspage.md
+owner: CollabOps
+repo: status
 
 sites:
-  - name: Google
-    url: https://www.google.com
-  - name: Wikipedia
-    url: https://en.wikipedia.org
-  - name: Hacker News
-    url: https://news.ycombinator.com
-  - name: Test Broken Site
-    url: https://thissitedoesnotexist.koj.co
+  - name: CollabOps Cloud
+    url: https://collabops.ai
+  - name: Web App
+    url: https://app.collabops.ai
+    expectedStatusCodes: [200, 403]
+  - name: API
+    url: https://collabops.ai/api/v2/health
+    expectedStatusCodes: [200, 401]
+  - name: Git / Repository
+    url: https://collabops.ai/collabops-one/probe.git/info/refs?service=git-upload-pack
+    headers:
+      - "User-Agent: git/2.39.5"
+    expectedStatusCodes: [200, 401, 404]
+  - name: CI/CD
+    url: https://tekton.collabops.ai
+    expectedStatusCodes: [200, 403]
+  - name: Docs
+    url: https://docs.collabops.ai
+  - name: Notifications
+    url: https://ws.collabops.ai
 
 status-website:
-  # Add your custom domain name, or remove the `cname` line if you don't have a domain
-  # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
-  cname: demo.upptime.js.org
-  # baseUrl: /your-repo-name
-  logoUrl: https://raw.githubusercontent.com/upptime/upptime.js.org/master/static/img/icon.svg
-  name: Upptime
-  introTitle: "**Upptime** is the open-source uptime monitor and status page, powered entirely by GitHub."
-  introMessage: This is a sample status page which uses **real-time** data from our [GitHub repository](https://github.com/upptime/upptime). No server required — just GitHub Actions, Issues, and Pages. [**Get your own for free**](https://github.com/upptime/upptime)
+  cname: status.collabops.ai
+  name: CollabOps Status
+  introTitle: "**CollabOps** service status"
+  introMessage: Real-time status and uptime history for CollabOps services.
   navbar:
     - title: Status
       href: /
-    - title: GitHub
-      href: https://github.com/$OWNER/$REPO
-
-# Upptime also supports notifications, assigning issues, and more
-# See https://upptime.js.org/docs/configuration
+    - title: CollabOps
+      href: https://collabops.ai
